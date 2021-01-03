@@ -81,17 +81,6 @@ const app = express();
 
 // not having cors enabled will cause an access control error
 app.use(cors());
-// app.use("/graphql", function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-//   if (req.method === 'OPTIONS') {
-//     res.sendStatus(200);
-//   } else {
-//     next();
-//   }
-// });
-// app.use(bodyParser.json());
-
 // Wrapping graphql middleware in a funtion to get access to req and res objects 
 // which can be passed down as a context to set and check cookies in resolvers.
 app.use('/graphql', (req, res) => { graphqlHTTP({
