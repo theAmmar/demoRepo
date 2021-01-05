@@ -15,7 +15,7 @@ query Country($id: Int!) {
 const Country = (props) => {
     const { location: { state: { userId } } } = props;
     const [ userData, setUserData ] = useState();
-    const [ skip, setSkip ] = React.useState(false);
+    const [ skip, setSkip ] = useState(false);
     const { loading, error, data } = useQuery(COUNTRY, {
         variables : {
             id: userId

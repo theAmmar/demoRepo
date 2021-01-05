@@ -7,6 +7,7 @@ const schema = require('./schema');
 const countriesController = require("../controllers/countries.controller");
 const usersController = require("../controllers/users.controller");
 const authControler = require('../controllers/auth.controller');
+const { errorType, errorName } = require('./constants');
 
 // userHandler mocks out a simple ORM
 const userHandler = {
@@ -36,6 +37,7 @@ const userHandler = {
   }
 }
 
+// returns error codes
 const getErrorCode = errorName => {
   return errorType[errorName]
 }
@@ -51,14 +53,14 @@ const rootResolver = {
         user: user
       }
     },
+
     login: async (args, context) => {
       const { request, response } = context;
       
       const info = await userHandler.signInUser(args);
-
-      if (info.error) {
+      if(info.dataValues.password !== args.password) {
         throw new Error(errorName.PASSWORD_MISMATCH);
-      } 
+      };
       const finalResponse = info.error ? info : { 
         full_name: info.full_name, 
         country_code: info.country_code
@@ -88,6 +90,10 @@ app.use('/graphql', (req, res) => { graphqlHTTP({
     context: { 
       request: req, 
       response: res
+    },
+    formatError: (err) => {
+      const error = getErrorCode(err.message)
+      return ({ message: error.message, statusCode: error.statusCode })
     },
     rootValue: rootResolver,
     graphiql: true,

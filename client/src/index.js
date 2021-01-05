@@ -18,7 +18,8 @@ const client = new ApolloClient({
     'Access-Control-Allow-Credentials': true,
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
-  }
+  },
+  cache: new InMemoryCache()
 });
 
 ReactDOM.render(

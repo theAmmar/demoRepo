@@ -68,3 +68,14 @@
     margin-top: -5vh;
     margin-bottom: 8vh;;
 }
+.error-input {
+    background-color: #f9ebea !important;
+    border: 1px solid red !important;
+}
+.error-label {
+    color: #dd7e7a;
+}
+.error-info {
+    color: #dd7e7a;
+    font-size: 11px;
+}
